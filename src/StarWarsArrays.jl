@@ -23,7 +23,6 @@ Base.size(A::StarWarsArray) = size(parent(A))
 Base.getindex(A::StarWarsArray, i::Int) = getindex(parent(A), index(i))
 Base.getindex(A::StarWarsArray{T,N}, i::Vararg{Int,N}) where {T,N} =
     getindex(parent(A), index.(i)...)
-Base.setindex!(A::StarWarsArray, v, i::Int) = setindex!(parent(A), v, index(i))
 Base.setindex!(A::StarWarsArray{T,N}, v, i::Vararg{Int,N}) where {T,N} =
     setindex!(parent(A), v, index.(i)...)
 
