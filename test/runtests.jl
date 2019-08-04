@@ -20,4 +20,6 @@ using Test
     @test_throws BoundsError m[0, 12]
     m[4,4] = -42
     @test m[4] == -42
+    m[1] = 0
+    @test m[1,4] == 0
 end
