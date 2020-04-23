@@ -25,7 +25,7 @@ manager](https://julialang.github.io/Pkg.jl/stable/).  In a Julia session, after
 entering the package manager mode with `]`, run the command
 
 ```julia
-pkg> add https://github.com/giordano/StarWarsArrays
+pkg> add https://github.com/giordano/StarWarsArrays.jl
 ```
 
 ## Usage
