@@ -20,7 +20,7 @@ nice."](https://www.reddit.com/r/ProgrammerHumor/comments/clna6k/oof_level_of_an
 ## Installation
 
 The latest version of `StarWarsArrays.jl` is available for Julia v1.0 and
-later releases, and can be installed with [Julia built-in package
+later releases, and can be installed with [Julia's built-in package
 manager](https://julialang.github.io/Pkg.jl/stable/).  In a Julia session, after
 entering the package manager mode with `]`, run the command
 
@@ -109,7 +109,7 @@ julia> m
  36  45  54  9  18  27  63  72  81
 ```
 
-The second of `StarWarsArray` allows you to specify the order.  Here is how to
+The second argument of `StarWarsArray` allows you to specify the order.  Here is how to
 use `MacheteOrder`:
 
 ```julia
