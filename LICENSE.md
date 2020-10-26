@@ -1,4 +1,4 @@
-The Measurements.jl package is licensed under the MIT "Expat" License:
+The StarWarsArrays.jl package is licensed under the MIT "Expat" License:
 
 > Copyright (c) 2019 Mosè Giordano
 >
