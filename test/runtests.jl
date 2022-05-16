@@ -36,6 +36,9 @@ import StarWarsArrays: StarWarsError, order
     @test axes(m) == ([4, 5, 6, 1, 2, 3, 7, 8, 9], [4, 5, 6, 1, 2, 3, 7, 8, 9])
     @test length(m) == 81
     @test size(m) == (9, 9)
+
+    @test_throws ArgumentError StarWarsArray(rand(2), OriginalOrder)
+    @test_throws ArgumentError StarWarsArray(rand(8, 2), OriginalOrder)
 end
 
 @testset "MacheteOrder" begin
@@ -78,6 +81,9 @@ end
     @test axes(m) == ([3, 4, 1, 2, 5, 6, 7, 8], [3, 4, 1, 2, 5, 6, 7, 8])
     @test length(m) == 64
     @test size(m) == (8, 8)
+
+    @test_throws ArgumentError StarWarsArray(rand(4), MacheteOrder)
+    @test_throws ArgumentError StarWarsArray(rand(6, 2, 9), MacheteOrder)
 
     @test sprint(showerror, StarWarsArrays.StarWarsError(1, MacheteOrder)) ==
         "StarWarsError: there is no episode 1 in MacheteOrder"

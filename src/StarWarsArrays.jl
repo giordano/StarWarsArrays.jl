@@ -22,12 +22,18 @@ struct StarWarsArray{T,N,P<:AbstractArray,O<:StarWarsOrder} <: AbstractArray{T,N
     parent::P
 end
 function StarWarsArray(p::P, order::Type{<:StarWarsOrder}=OriginalOrder) where {T,N,P<:AbstractArray{T,N}}
-    StarWarsArray{T,N,P,order}(p)
+    if order === OriginalOrder
+        minimum(size(p)) < 6 &&
+            throw(ArgumentError("A StarWarsArray with OriginalOrder requires at least 6 elements in each dimension.  Input array has size $(size(p))"))
+    end
+    return StarWarsArray{T,N,P,order}(p)
 end
 
 machete_view_index(i) = range(1, stop=i)
 function StarWarsArray(p::P, order::Type{MacheteOrder}) where {T,N,P<:AbstractArray{T,N}}
-    StarWarsArray{T,N,P,order}(view(p, machete_view_index.(size(p) .- 1)...))
+    minimum(size(p)) < 5 &&
+        throw(ArgumentError("A StarWarsArray with MacheteOrder requires at least 5 elements in each dimension.  Input array has size $(size(p))"))
+    return StarWarsArray{T,N,P,order}(view(p, machete_view_index.(size(p) .- 1)...))
 end
 
 order(::StarWarsArray{T,N,P,O}) where {T,N,P,O} = O
