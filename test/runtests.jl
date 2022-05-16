@@ -13,6 +13,7 @@ import StarWarsArrays: StarWarsError, order
     @test_throws BoundsError v[0]
     v[4] = -42
     @test v[4] == -42
+    @test axes(v) == ([4, 5, 6, 1, 2, 3, 7, 8, 9],)
 
     m = StarWarsArray(reshape(collect(1:81), 9, 9), OriginalOrder)
     @test order(m) == OriginalOrder
@@ -26,6 +27,7 @@ import StarWarsArrays: StarWarsError, order
     @test m[4] == -42
     m[1] = 0
     @test m[1,4] == 0
+    @test axes(m) == ([4, 5, 6, 1, 2, 3, 7, 8, 9], [4, 5, 6, 1, 2, 3, 7, 8, 9])
 end
 
 @testset "MacheteOrder" begin

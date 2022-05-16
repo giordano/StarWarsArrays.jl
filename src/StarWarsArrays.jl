@@ -72,11 +72,14 @@ Base.setindex!(A::StarWarsArray, v, i::Int) =
 Base.setindex!(A::StarWarsArray{T,N}, v, i::Vararg{Int,N}) where {T,N} =
     setindex!(parent(A), v, index.(i, size(parent(A)), order(A))...)
 
+Base.axes(A::StarWarsArray{T,N,P,OriginalOrder}) where {T,N,P} =
+    map(i->index.(i, length(A), order(A)), machete_view_index.(size(A)))
+
 Base.axes(A::StarWarsArray{T,N,P,MacheteOrder}) where {T,N,P} =
     map(i->index.(i .+ 1, length(A), MacheteOrder), machete_view_index.(size(A)))
 
 # Showing.  Note: this is awful, but it does what I want
-Base.show(io::IO, m::MIME"text/plain", A::StarWarsArray{T,N,P,MacheteOrder}) where {T,N,P} =
+Base.show(io::IO, m::MIME"text/plain", A::StarWarsArray{T,N}) where {T,N} =
     show(io, m, view(parent(A), axes(A)...))
 
 end # module
