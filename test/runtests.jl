@@ -40,6 +40,7 @@ end
     @test_throws BoundsError v[0]
     v[4] = -42
     @test v[4] == -42
+    @test axes(v) == ([3, 4, 1, 2, 5, 6, 7, 8],)
 
     m = StarWarsArray(reshape(collect(1:81), 9, 9), MacheteOrder)
     @test order(m) == MacheteOrder
@@ -60,6 +61,7 @@ end
     @test m[4] == -42
     m[2] = 0
     @test m[2,4] == 0
+    @test axes(m) == ([3, 4, 1, 2, 5, 6, 7, 8], [3, 4, 1, 2, 5, 6, 7, 8])
 
     @test sprint(showerror, StarWarsArrays.StarWarsError(1, MacheteOrder)) ==
         "StarWarsError: there is no episode 1 in MacheteOrder"
