@@ -16,8 +16,14 @@ import StarWarsArrays: StarWarsError, order
     v[4] = -42
     @test v[4] == -42
     @test axes(v) == ([4, 5, 6, 1, 2, 3, 7, 8, 9],)
+    @test eachindex(v) == [4, 5, 6, 1, 2, 3, 7, 8, 9]
     @test length(v) == 9
     @test size(v) == (9,)
+    for (idx, x) in enumerate(v)
+        # Explanation: iterating over `v` should be equivalent to iterating over its parent,
+        # because the iteration protocol should follow the order 4, 5, 6, 1, 2, 3, ...
+        @test x == parent(v)[idx]
+    end
 
     m = StarWarsArray(reshape(collect(1:81), 9, 9), OriginalOrder)
     @test order(m) == OriginalOrder
@@ -36,6 +42,9 @@ import StarWarsArrays: StarWarsError, order
     @test axes(m) == ([4, 5, 6, 1, 2, 3, 7, 8, 9], [4, 5, 6, 1, 2, 3, 7, 8, 9])
     @test length(m) == 81
     @test size(m) == (9, 9)
+    for (idx, x) in enumerate(m)
+        @test x == parent(m)[idx]
+    end
 
     @test_throws ArgumentError StarWarsArray(rand(2), OriginalOrder)
     @test_throws ArgumentError StarWarsArray(rand(8, 2), OriginalOrder)
@@ -56,8 +65,12 @@ end
     v[4] = -42
     @test v[4] == -42
     @test axes(v) == ([3, 4, 1, 2, 5, 6, 7, 8],)
+    @test eachindex(v) == [3, 4, 1, 2, 5, 6, 7, 8]
     @test length(v) == 8
     @test size(v) == (8,)
+    for (idx, x) in enumerate(v)
+        @test x == parent(v)[idx]
+    end
 
     m = StarWarsArray(reshape(collect(1:81), 9, 9), MacheteOrder)
     @test order(m) == MacheteOrder
@@ -81,6 +94,9 @@ end
     @test axes(m) == ([3, 4, 1, 2, 5, 6, 7, 8], [3, 4, 1, 2, 5, 6, 7, 8])
     @test length(m) == 64
     @test size(m) == (8, 8)
+    for (idx, x) in enumerate(m)
+        @test x == parent(m)[idx]
+    end
 
     @test_throws ArgumentError StarWarsArray(rand(4), MacheteOrder)
     @test_throws ArgumentError StarWarsArray(rand(6, 2, 9), MacheteOrder)
