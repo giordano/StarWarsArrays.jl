@@ -18,7 +18,7 @@ function Base.showerror(io::IO, err::StarWarsError)
 end
 
 # The main struct
-struct StarWarsArray{T,N,P<:AbstractArray,O<:StarWarsOrder} <: AbstractArray{T,N}
+struct StarWarsArray{T,N,P<:AbstractArray,O<:StarWarsOrder}
     parent::P
 end
 function StarWarsArray(p::P, order::Type{<:StarWarsOrder}=OriginalOrder) where {T,N,P<:AbstractArray{T,N}}
