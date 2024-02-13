@@ -15,8 +15,10 @@ import StarWarsArrays: StarWarsError, order
         " 4\n 5\n 6\n 1\n 2\n 3\n 7\n 8\n 9"
     v[4] = -42
     @test v[4] == -42
-    @test axes(v) == ([4, 5, 6, 1, 2, 3, 7, 8, 9],)
-    @test eachindex(v) == [4, 5, 6, 1, 2, 3, 7, 8, 9]
+    @test StarWarsArrays.axes(v) == ([4, 5, 6, 1, 2, 3, 7, 8, 9],)
+    @test StarWarsArrays.eachindex(v) == [4, 5, 6, 1, 2, 3, 7, 8, 9]
+    @test axes(v) === (Base.OneTo(length(v)),)
+    @test eachindex(v) === Base.OneTo(length(v))
     @test length(v) == 9
     @test size(v) == (9,)
     for (idx, x) in enumerate(v)
@@ -39,7 +41,8 @@ import StarWarsArrays: StarWarsError, order
     @test m[4] == -42
     m[1] = 0
     @test m[1,4] == 0
-    @test axes(m) == ([4, 5, 6, 1, 2, 3, 7, 8, 9], [4, 5, 6, 1, 2, 3, 7, 8, 9])
+    @test StarWarsArrays.axes(m) == ([4, 5, 6, 1, 2, 3, 7, 8, 9], [4, 5, 6, 1, 2, 3, 7, 8, 9])
+    @test axes(m) == (Base.OneTo(size(m,1)), Base.OneTo(size(m,2)))
     @test length(m) == 81
     @test size(m) == (9, 9)
     for (idx, x) in enumerate(m)
@@ -64,8 +67,10 @@ end
         " 3\n 4\n 1\n 2\n 5\n 6\n 7\n 8"
     v[4] = -42
     @test v[4] == -42
-    @test axes(v) == ([3, 4, 1, 2, 5, 6, 7, 8],)
-    @test eachindex(v) == [3, 4, 1, 2, 5, 6, 7, 8]
+    @test StarWarsArrays.axes(v) == ([3, 4, 1, 2, 5, 6, 7, 8],)
+    @test StarWarsArrays.eachindex(v) == [3, 4, 1, 2, 5, 6, 7, 8]
+    @test axes(v) == (Base.OneTo(length(v)),)
+    @test eachindex(v) == Base.OneTo(length(v))
     @test length(v) == 8
     @test size(v) == (8,)
     for (idx, x) in enumerate(v)
@@ -91,7 +96,8 @@ end
     @test m[4] == -42
     m[2] = 0
     @test m[2,4] == 0
-    @test axes(m) == ([3, 4, 1, 2, 5, 6, 7, 8], [3, 4, 1, 2, 5, 6, 7, 8])
+    @test StarWarsArrays.axes(m) == ([3, 4, 1, 2, 5, 6, 7, 8], [3, 4, 1, 2, 5, 6, 7, 8])
+    @test axes(m) == (Base.OneTo(size(m,1)), Base.OneTo(size(m,2)))
     @test length(m) == 64
     @test size(m) == (8, 8)
     for (idx, x) in enumerate(m)

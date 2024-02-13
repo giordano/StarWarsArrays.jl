@@ -78,12 +78,16 @@ Base.setindex!(A::StarWarsArray, v, i::Int) =
 Base.setindex!(A::StarWarsArray{T,N}, v, i::Vararg{Int,N}) where {T,N} =
     setindex!(parent(A), v, index.(i, size(parent(A)), order(A))...)
 
-# Axes
-Base.axes(A::StarWarsArray{T,N,P,OriginalOrder}) where {T,N,P} =
+# StarWarsArrays.axes
+axes(A::StarWarsArray{T,N,P,OriginalOrder}) where {T,N,P} =
     map(i->index.(i, length(A), order(A)), machete_view_index.(size(A)))
 
-Base.axes(A::StarWarsArray{T,N,P,MacheteOrder}) where {T,N,P} =
+axes(A::StarWarsArray{T,N,P,MacheteOrder}) where {T,N,P} =
     map(i->index.(i .+ 1, length(A), MacheteOrder), machete_view_index.(size(A)))
+
+# StarWarsArrays.eachindex
+eachindex(A::StarWarsArray{<: Any,1}) = first(axes(A))
+eachindex(A::StarWarsArray) = vec(LinearIndices(size(A))[axes(A)...])
 
 # Iteration
 function iterate_revindex(i::Int, ::Type{OriginalOrder})
